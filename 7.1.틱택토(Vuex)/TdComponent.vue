@@ -1,28 +1,34 @@
+
 <template>
-  <td @click="onClickTd">{{ cellData }}</td>
+  <td @click="onClickTd">{{cellData}}</td>
 </template>
 
 <script>
-// import Vue from "vue";
-
-export default {
-  props: {
-    cellData: String,
-    rowIndex: Number,
-    cellIndex: Number,
-  },
-  methods: {
-    onClickTd() {
-      if (cellData) return false;
-      //   this.$root.$data.tableData[this.rowIndex][this.cellIndex] = this.$root.$data.turn;
-      let rootData = this.$root.$data;
-      this.$set(
-        rootData.tableData[this.rowIndex],
-        this.cellIndex,
-        rootData.turn
-      );
-      rootData.turn = rootData.turn === "O" ? "X" : "O";
+  import { mapState } from 'vuex';
+  import { CLICK_CELL, SET_WINNER, RESET_GAME, CHANGE_TURN, NO_WINNER } from './store';
+  export default {
+    props: {
+      rowIndex: Number,
+      cellIndex: Number,
     },
-  },
-};
-</script>
+    computed: {
+      ...mapState({
+        tableData: state => state.tableData,
+        turn: state => state.turn,
+        cellData(state) {
+          return state.tableData[this.rowIndex][this.cellIndex];
+        },
+      }),
+      // cellData() {
+      //   return this.$store.state.tableData[this.rowIndex][this.cellIndex];
+      // },
+      // tableData() {
+      //   return this.$store.state.tableData;
+      // },
+      // turn() {
+      //   return this.$store.state.turn;
+      // },
+    },
+    methods: {
+    }
+  };
