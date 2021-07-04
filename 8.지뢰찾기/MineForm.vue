@@ -1,3 +1,4 @@
+  
 <template>
   <div>
     <input
@@ -18,7 +19,7 @@
       :value="mine"
       @change="onChangeMine"
     />
-    <button @click="onClickBtn">버튼</button>
+    <button @click="onClickBtn">시작</button>
   </div>
 </template>
 
